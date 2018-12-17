@@ -592,6 +592,10 @@ RecoveryUI::InputEvent RecoveryUI::WaitInputEvent() {
   return event;
 }
 
+void RecoveryUI::CancelWaitKey() {
+  EnqueueKey(KEY_AGAIN);
+}
+
 void RecoveryUI::InterruptKey() {
   {
     std::lock_guard<std::mutex> lg(event_queue_mutex);
