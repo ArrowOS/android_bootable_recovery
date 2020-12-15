@@ -329,30 +329,11 @@ static InstallResult TryUpdateBinary(Package* package, bool* wipe_cache,
                                      int* max_temperature, RecoveryUI* ui) {
   std::map<std::string, std::string> metadata;
   auto zip = package->GetZipArchiveHandle();
-  if (!ReadMetadataFromPackage(zip, &metadata)) {
-    LOG(ERROR) << "Failed to parse metadata in the zip file";
-    return INSTALL_CORRUPT;
-  }
 
   bool package_is_ab = get_value(metadata, "ota-type") == OtaTypeToString(OtaType::AB);
-  bool device_supports_ab = android::base::GetBoolProperty("ro.build.ab_update", false);
-  bool ab_device_supports_nonab =
-      android::base::GetBoolProperty("ro.virtual_ab.allow_non_ab", false);
-  bool device_only_supports_ab = device_supports_ab && !ab_device_supports_nonab;
 
   if (package_is_ab) {
     CHECK(package->GetType() == PackageType::kFile);
-  }
-
-  // Verify against the metadata in the package first. Expects A/B metadata if:
-  // Package declares itself as an A/B package
-  // Package does not declare itself as an A/B package, but device only supports A/B;
-  //   still calls CheckPackageMetadata to get a meaningful error message.
-  if (package_is_ab || device_only_supports_ab) {
-    if (!CheckPackageMetadata(metadata, OtaType::AB)) {
-      log_buffer->push_back(android::base::StringPrintf("error: %d", kUpdateBinaryCommandFailure));
-      return INSTALL_ERROR;
-    }
   }
 
   ReadSourceTargetBuild(metadata, log_buffer);
