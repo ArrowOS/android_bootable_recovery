@@ -70,6 +70,11 @@ static constexpr const char* LOCALE_FILE = "/cache/recovery/last_locale";
 static RecoveryUI* ui = nullptr;
 
 static bool IsRoDebuggable() {
+  // If the build is not a production build (user), always enable debugging
+  if (get_build_type() != "user") {
+    return true;
+  }
+
   return android::base::GetBoolProperty("ro.debuggable", false);
 }
 
