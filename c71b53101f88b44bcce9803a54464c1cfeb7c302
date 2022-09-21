@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "224beb63_8f186e5f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 71
+      },
+      "writtenOn": "2022-09-21T14:11:20Z",
+      "side": 1,
+      "message": "Comment removed by: Kuber Sharma; Reason: ID",
+      "revId": "c71b53101f88b44bcce9803a54464c1cfeb7c302",
+      "serverId": "66da7299-18b4-411a-8fa2-12a880778196"
+    }
+  ]
+}
