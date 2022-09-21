@@ -252,7 +252,6 @@ static std::string ExtractPayloadProperties(ZipArchiveHandle zip) {
   static constexpr const char* AB_OTA_PAYLOAD_PROPERTIES = "payload_properties.txt";
   ZipEntry64 properties_entry;
   if (FindEntry(zip, AB_OTA_PAYLOAD_PROPERTIES, &properties_entry) != 0) {
-    LOG(ERROR) << "Failed to find " << AB_OTA_PAYLOAD_PROPERTIES;
     return {};
   }
   auto properties_entry_length = properties_entry.uncompressed_length;
